@@ -238,18 +238,6 @@
         }
 
         /**
-         * setRecord
-         * 
-         * @access  public
-         * @param   array $record
-         * @return  void
-         */
-        public function setRecord(array $record)
-        {
-            $this->_setRecord($record);
-        }
-
-        /**
          * getRegion
          * 
          * @access  public
@@ -271,5 +259,17 @@
         public function setIp($ip)
         {
             $this->_ip = $ip;
+        }
+
+        /**
+         * setRecord
+         * 
+         * @access  public
+         * @param   array $record
+         * @return  void
+         */
+        public function setRecord(array $record)
+        {
+            $this->_setRecord($record);
         }
     }
