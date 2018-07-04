@@ -132,6 +132,9 @@
         public function getCity()
         {
             $record = $this->_getRecord();
+            if (isset($record['city']) === false) {
+                return '(unknown city)';
+            }
             return utf8_encode($record['city']);
         }
 
@@ -144,6 +147,9 @@
         public function getCountry()
         {
             $record = $this->_getRecord();
+            if (isset($record['country_name']) === false) {
+                return '(unknown country name)';
+            }
             return utf8_encode($record['country_name']);
         }
 
@@ -156,6 +162,9 @@
         public function getCountryCode()
         {
             $record = $this->_getRecord();
+            if (isset($record['country_code']) === false) {
+                return '(unknown country code)';
+            }
             return utf8_encode($record['country_code']);
         }
 
@@ -246,6 +255,9 @@
         public function getRegion()
         {
             $record = $this->_getRecord();
+            if (isset($record['region_name']) === false) {
+                return '(unknown region name)';
+            }
             return utf8_encode($record['region_name']);
         }
 
