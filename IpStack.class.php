@@ -114,7 +114,7 @@
         {
             $ip = $this->_getIp();
             $key = $this->_key;
-            $url = ($this->_base) . '/'. ($ip) . '?access_key=' . ($key);
+            $url = ($this->_base) . '/' . ($ip) . '?access_key=' . ($key);
             $ch = curl_init($url);
             curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
             $json = curl_exec($ch);
@@ -127,13 +127,13 @@
          * getCity
          * 
          * @access  public
-         * @return  string
+         * @return  false|string
          */
         public function getCity()
         {
             $record = $this->_getRecord();
             if (isset($record['city']) === false) {
-                return '(unknown city)';
+                return false;
             }
             return utf8_encode($record['city']);
         }
@@ -142,13 +142,13 @@
          * getCountry
          * 
          * @access  public
-         * @return  string
+         * @return  false|string
          */
         public function getCountry()
         {
             $record = $this->_getRecord();
             if (isset($record['country_name']) === false) {
-                return '(unknown country name)';
+                return false;
             }
             return utf8_encode($record['country_name']);
         }
@@ -157,13 +157,13 @@
          * getCountryCode
          * 
          * @access  public
-         * @return  string
+         * @return  false|string
          */
         public function getCountryCode()
         {
             $record = $this->_getRecord();
             if (isset($record['country_code']) === false) {
-                return '(unknown country code)';
+                return false;
             }
             return utf8_encode($record['country_code']);
         }
@@ -250,13 +250,13 @@
          * getRegion
          * 
          * @access  public
-         * @return  string
+         * @return  false|string
          */
         public function getRegion()
         {
             $record = $this->_getRecord();
             if (isset($record['region_name']) === false) {
-                return '(unknown region name)';
+                return false;
             }
             return utf8_encode($record['region_name']);
         }
