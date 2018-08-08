@@ -189,46 +189,46 @@
             $countryCode = $this->getCountryCode();
             $countryCode = strtoupper($countryCode);
             if ($countryCode === 'CA' || $countryCode === 'US') {
-                if ($city !== '') {
+                if ($city !== false && $city !== '') {
                     array_push($pieces, $city);
-                    if ($region !== '') {
+                    if ($region !== false && $region !== '') {
                         array_push($pieces, $region);
                         return implode(', ', $pieces);
                     }
-                    if ($country !== '') {
+                    if ($country !== false && $country !== '') {
                         array_push($pieces, $country);
                         return implode(', ', $pieces);
                     }
                     array_push($pieces, $countryCode);
                     return implode(', ', $pieces);
                 }
-                if ($region !== '') {
+                if ($region !== false && $region !== '') {
                     array_push($pieces, $region);
-                    if ($country !== '') {
+                    if ($country !== false && $country !== '') {
                         array_push($pieces, $country);
                         return implode(', ', $pieces);
                     }
                     array_push($pieces, $countryCode);
                     return implode(', ', $pieces);
                 }
-                if ($country !== '') {
+                if ($country !== false && $country !== '') {
                     return $country;
                 }
                 return $countryCode;
             }
-            if ($city !== '') {
+            if ($city !== false && $city !== '') {
                 array_push($pieces, $city);
-                if ($country !== '') {
+                if ($country !== false && $country !== '') {
                     array_push($pieces, $country);
                     return implode(', ', $pieces);
                 }
-                if ($countryCode !== '') {
+                if ($countryCode !== false && $countryCode !== '') {
                     array_push($pieces, $countryCode);
                     return implode(', ', $pieces);
                 }
                 return $city;
             }
-            if ($country !== '') {
+            if ($country !== false && $country !== '') {
                 return $country;
             }
             return '';
