@@ -17,6 +17,14 @@
         protected $_base = 'http://api.ipstack.com';
 
         /**
+         * _cache
+         * 
+         * @var     array (default: array())
+         * @access  protected
+         */
+        protected $_cache = array();
+
+        /**
          * _ip
          * 
          * @var     null|string (default: null)
@@ -33,23 +41,39 @@
         protected $_key = null;
 
         /**
-         * _cache
-         * 
-         * @var     array (default: array())
-         * @access  protected
-         */
-        protected $_cache = array();
-
-        /**
          * __construct
          * 
          * @access  public
          * @param   string $key
          * @return  void
          */
-        public function __construct($key)
+        public function __construct(string $key)
         {
             $this->_key = $key;
+        }
+
+        /**
+         * _format
+         * 
+         * @access  protected
+         * @param   array $record
+         * @param   string $key
+         * @return  false|string
+         */
+        protected function _format(array $record, string $key)
+        {
+            $record = $this->_getRecord();
+            if (isset($record[$key]) === false) {
+                return false;
+            }
+            if ($record[$key] === false) {
+                return false;
+            }
+            if ($record[$key] === null) {
+                return false;
+            }
+            $formatted = utf8_encode($record[$key]);
+            return $formatted;
         }
 
         /**
@@ -59,7 +83,7 @@
          * @access  protected
          * @return  string
          */
-        protected function _getIp()
+        protected function _getIp(): string
         {
             if (is_null($this->_ip) === false) {
                 return $this->_ip;
@@ -78,9 +102,9 @@
          * _getRecord
          * 
          * @access  protected
-         * @return  array
+         * @return  null|array
          */
-        protected function _getRecord()
+        protected function _getRecord(): ?array
         {
             $ip = $this->_getIp();
             if (isset($this->_cache[$ip]) === true) {
@@ -92,35 +116,83 @@
         }
 
         /**
-         * _setRecord
+         * _getRequestPath
          * 
          * @access  protected
-         * @param   array $record
-         * @return  array
+         * @return  string
          */
-        protected function _setRecord(array $record)
+        protected function _getRequestPath(): string
         {
             $ip = $this->_getIp();
-            $this->_cache[$ip] = $record;
+            $path = '/' . ($ip);
+            return $path;
+        }
+
+        /**
+         * _getRequestQueryString
+         * 
+         * @access  protected
+         * @return  string
+         */
+        protected function _getRequestQueryString(): string
+        {
+            $key = $this->_key;
+            $queryData = array(
+                'access_key' => $key
+            );
+            $queryString = http_build_query($queryData);
+            return $queryString;
+        }
+
+        /**
+         * _getRequestUrl
+         * 
+         * @access  protected
+         * @return  string
+         */
+        protected function _getRequestUrl(): string
+        {
+            $base = $this->_base;
+            $path = $this->_getRequestPath();
+            $queryString = $this->_getRequestQueryString();
+            $url = ($base) . ($path) . '?' . ($queryString);
+            return $url;
         }
 
         /**
          * _requestRecord
          * 
          * @access  protected
-         * @return  array
+         * @return  null|array
          */
-        protected function _requestRecord()
+        protected function _requestRecord(): ?array
         {
-            $ip = $this->_getIp();
-            $key = $this->_key;
-            $url = ($this->_base) . '/' . ($ip) . '?access_key=' . ($key);
+            $url = $this->_getRequestUrl();
             $ch = curl_init($url);
             curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
             $json = curl_exec($ch);
             curl_close($ch);
+            if (is_string($json) === false) {
+                return null;
+            }
             $response = json_decode($json, true);
+            if ($response === null) {
+                return null;
+            }
             return $response;
+        }
+
+        /**
+         * _setRecord
+         * 
+         * @access  protected
+         * @param   array $record
+         * @return  void
+         */
+        protected function _setRecord(array $record): void
+        {
+            $ip = $this->_getIp();
+            $this->_cache[$ip] = $record;
         }
 
         /**
@@ -132,10 +204,8 @@
         public function getCity()
         {
             $record = $this->_getRecord();
-            if (isset($record['city']) === false) {
-                return false;
-            }
-            return utf8_encode($record['city']);
+            $formatted = $this->_format($record, 'city');
+            return $formatted;
         }
 
         /**
@@ -147,10 +217,8 @@
         public function getCountry()
         {
             $record = $this->_getRecord();
-            if (isset($record['country_name']) === false) {
-                return false;
-            }
-            return utf8_encode($record['country_name']);
+            $formatted = $this->_format($record, 'country_name');
+            return $formatted;
         }
 
         /**
@@ -162,10 +230,8 @@
         public function getCountryCode()
         {
             $record = $this->_getRecord();
-            if (isset($record['country_code']) === false) {
-                return false;
-            }
-            return utf8_encode($record['country_code']);
+            $formatted = $this->_format($record, 'country_code');
+            return $formatted;
         }
 
         /**
@@ -180,7 +246,7 @@
          * @access  public
          * @return  string
          */
-        public function getFormatted()
+        public function getFormatted(): string
         {
             $pieces = array();
             $city = $this->getCity();
@@ -238,9 +304,9 @@
          * getRecord
          * 
          * @access  public
-         * @return  array
+         * @return  null|array
          */
-        public function getRecord()
+        public function getRecord(): ?array
         {
             $record = $this->_getRecord();
             return $record;
@@ -255,10 +321,8 @@
         public function getRegion()
         {
             $record = $this->_getRecord();
-            if (isset($record['region_name']) === false) {
-                return false;
-            }
-            return utf8_encode($record['region_name']);
+            $formatted = $this->_format($record, 'region_name');
+            return $formatted;
         }
 
         /**
@@ -268,7 +332,7 @@
          * @param   string $ip
          * @return  void
          */
-        public function setIp($ip)
+        public function setIp($ip): void
         {
             $this->_ip = $ip;
         }
@@ -276,11 +340,13 @@
         /**
          * setRecord
          * 
+         * @note    This exists to allow for middleware caching of data to
+         *          prevent unncessary lookups
          * @access  public
          * @param   array $record
          * @return  void
          */
-        public function setRecord(array $record)
+        public function setRecord(array $record): void
         {
             $this->_setRecord($record);
         }
