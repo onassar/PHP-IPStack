@@ -72,8 +72,9 @@
             if ($record[$key] === null) {
                 return false;
             }
-            $formatted = utf8_encode($record[$key]);
-            return $formatted;
+            return $record[$key];
+            // $formatted = utf8_encode($record[$key]);
+            // return $formatted;
         }
 
         /**
