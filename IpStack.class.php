@@ -146,12 +146,12 @@
         }
 
         /**
-         * _getRequestUrl
+         * _getRequestURL
          * 
          * @access  protected
          * @return  string
          */
-        protected function _getRequestUrl(): string
+        protected function _getRequestURL(): string
         {
             $base = $this->_base;
             $path = $this->_getRequestPath();
@@ -168,7 +168,7 @@
          */
         protected function _requestRecord(): ?array
         {
-            $url = $this->_getRequestUrl();
+            $url = $this->_getRequestURL();
             $ch = curl_init($url);
             curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
             $json = curl_exec($ch);
