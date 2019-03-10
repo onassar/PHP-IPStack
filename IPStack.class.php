@@ -327,13 +327,13 @@
         }
 
         /**
-         * setIp
+         * setIP
          * 
          * @access  public
          * @param   string $ip
          * @return  void
          */
-        public function setIp($ip): void
+        public function setIP($ip): void
         {
             $this->_ip = $ip;
         }
