@@ -1,12 +1,12 @@
 <?php
 
     /**
-     * IpStack
+     * IPStack
      * 
      * @link    https://github.com/onassar/PHP-IpStack
      * @author  Oliver Nassar <onassar@gmail.com>
      */
-    class IpStack
+    class IPStack
     {
         /**
          * _base
