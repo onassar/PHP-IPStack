@@ -78,13 +78,13 @@
         }
 
         /**
-         * _getIp
+         * _getIP
          * 
          * @throws  Exception
          * @access  protected
          * @return  string
          */
-        protected function _getIp(): string
+        protected function _getIP(): string
         {
             if (is_null($this->_ip) === false) {
                 return $this->_ip;
@@ -107,7 +107,7 @@
          */
         protected function _getRecord(): ?array
         {
-            $ip = $this->_getIp();
+            $ip = $this->_getIP();
             if (isset($this->_cache[$ip]) === true) {
                 return $this->_cache[$ip];
             }
@@ -124,7 +124,7 @@
          */
         protected function _getRequestPath(): string
         {
-            $ip = $this->_getIp();
+            $ip = $this->_getIP();
             $path = '/' . ($ip);
             return $path;
         }
@@ -192,7 +192,7 @@
          */
         protected function _setRecord(array $record): void
         {
-            $ip = $this->_getIp();
+            $ip = $this->_getIP();
             $this->_cache[$ip] = $record;
         }
 
