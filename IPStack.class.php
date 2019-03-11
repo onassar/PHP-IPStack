@@ -3,7 +3,7 @@
     /**
      * IPStack
      * 
-     * @link    https://github.com/onassar/PHP-IpStack
+     * @link    https://github.com/onassar/PHP-IPStack
      * @author  Oliver Nassar <onassar@gmail.com>
      */
     class IPStack
