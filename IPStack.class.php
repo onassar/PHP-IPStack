@@ -11,32 +11,32 @@
         /**
          * _base
          * 
-         * @var     string (default: 'http://api.ipstack.com')
          * @access  protected
+         * @var     string (default: 'http://api.ipstack.com')
          */
         protected $_base = 'http://api.ipstack.com';
 
         /**
          * _cache
          * 
-         * @var     array (default: array())
          * @access  protected
+         * @var     array (default: array())
          */
         protected $_cache = array();
 
         /**
          * _ip
          * 
-         * @var     null|string (default: null)
          * @access  protected
+         * @var     null|string (default: null)
          */
         protected $_ip = null;
 
         /**
          * _key
          * 
-         * @var     null|string (default: null)
          * @access  protected
+         * @var     null|string (default: null)
          */
         protected $_key = null;
 
