@@ -236,6 +236,32 @@
         }
 
         /**
+         * getCountryEmojiCharacter
+         * 
+         * @access  public
+         * @return  false|string
+         */
+        public function getCountryEmojiCharacter()
+        {
+            $record = $this->_getRecord();
+            $value = $record['location']['country_flag_emoji'] ?? false;
+            return $value;
+        }
+
+        /**
+         * getCountryEmojiImageURL
+         * 
+         * @access  public
+         * @return  false|string
+         */
+        public function getCountryEmojiImageURL()
+        {
+            $record = $this->_getRecord();
+            $value = $record['location']['country_flag'] ?? false;
+            return $value;
+        }
+
+        /**
          * getFormatted
          * 
          * Returns a formatted string for UI presentation. Examples include:
