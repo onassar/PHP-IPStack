@@ -353,6 +353,20 @@
         }
 
         /**
+         * getTimezone
+         * 
+         * @access  public
+         * @return  null|string
+         */
+        public function getTimezone(): ?string
+        {
+            $record = $this->_getRecord();
+            $data = $this->_format($record, 'time_zone');
+            $formatted = $data['id'] ?? null;
+            return $formatted;
+        }
+
+        /**
          * setIP
          * 
          * @access  public
